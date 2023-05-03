@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { adminArray } from "@/admin.array";
@@ -5,6 +6,7 @@ import { db } from "@/firebase.config";
 import { MessageType } from "@/types";
 import { User } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
+import moment from "moment";
 import { MdBlurOff, MdLensBlur } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 
@@ -32,54 +34,64 @@ function ChatBox({
     }
   };
   return (
-    <div className="bg-slate-100 px-4 py-2 rounded-md my-2 lg:my-3 shadow-sm shadow-gray-100">
-      <div className="flex items-center mb-2 justify-between">
-        <div className="flex items-center">
-          <img
-            className="w-11 h-11 rounded-full"
-            src={message!.userPhotoUrl}
-            alt="User image"
-          />
-          <div className="ml-3">
-            <div className="font-medium">{message.name}</div>
-            <span className="text-sm text-slate-700">{message.createdAt}</span>
+    <>
+      <div
+        className={`chat ${
+          user?.uid === message?.userID ? "chat-end" : "chat-start"
+        }`}
+      >
+        <div className="chat-image avatar">
+          <div className="w-10 rounded-full">
+            <img src={message?.userPhotoUrl ?? ""} />
           </div>
         </div>
-        {(user?.uid === message.userID ||
-          adminArray.includes(user?.email ?? "")) && (
-          <div className="flex space-x-2 select-none">
-            {message.blured ? (
-              <>
-                <MdBlurOff
-                  onClick={() => handleBlurUpdate(message!.docID)}
-                  className="text-green-500 text-xl cursor-pointer"
-                />
-              </>
-            ) : (
-              <>
-                <MdLensBlur
-                  onClick={() => handleBlurUpdate(message!.docID)}
-                  className="text-green-500 text-xl cursor-pointer"
-                />
-              </>
-            )}
-            <RiDeleteBin6Line
-              onClick={() => handleDelete(message!.docID)}
-              className="text-red-500 text-xl cursor-pointer"
-            />
-          </div>
-        )}
-      </div>
-      <div className="bg-white rounded-md p-3">
-        <p
-          className={`text-gray-800 ${
+        <div className="chat-header">
+          <span>{message?.name ?? ""} | </span>
+          <time className="text-xs opacity-50">
+            {moment(message?.timestamp).fromNow()}
+          </time>
+        </div>
+        <div
+          className={`chat-bubble my-1 ${
+            user?.uid === message?.userID
+              ? "chat-bubble-primary"
+              : "bg-gray-800"
+          } flex justify-center items-center min-w-auto transition ${
             message!.blured && "blur-sm select-none"
           }`}
         >
-          {message.text}
-        </p>
+          {message?.text ?? ""}
+        </div>
+        <div className="chat-footer opacity-100">
+          <div className="flex items-center mb-2 justify-between">
+            {(user?.uid === message.userID ||
+              adminArray.includes(user?.email ?? "")) && (
+              <div className="flex space-x-2 select-none">
+                <RiDeleteBin6Line
+                  onClick={() => handleDelete(message!.docID)}
+                  className="text-red-500 text-lg cursor-pointer opacity-50"
+                />
+                {message.blured ? (
+                  <>
+                    <MdBlurOff
+                      onClick={() => handleBlurUpdate(message!.docID)}
+                      className="text-green-500 text-lg cursor-pointer"
+                    />
+                  </>
+                ) : (
+                  <>
+                    <MdLensBlur
+                      onClick={() => handleBlurUpdate(message!.docID)}
+                      className="text-green-500 text-lg cursor-pointer"
+                    />
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

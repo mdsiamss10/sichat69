@@ -3,7 +3,7 @@
 import { adminArray, subAdminArray } from "@/admin.array";
 import { db } from "@/firebase.config";
 
-import { MessageType } from "@/types";
+import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
 import { useEffect, useRef, useState } from "react";
@@ -12,7 +12,7 @@ import ChatBox from "./ChatBox";
 function ChatContainer({ user }: { user: User | null }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
-
+  const [subadmins, setSubAdmins] = useState<SubAdminsType[]>([]);
 
   useEffect(() => {
     const collectionRef = collection(db, "chats");
@@ -27,12 +27,23 @@ function ChatContainer({ user }: { user: User | null }) {
   }, []);
 
   useEffect(() => {
+    const collectionRef = collection(db, "subadmins");
+    const unsubscribe = onSnapshot(collectionRef, (snapshots) => {
+      setSubAdmins(
+        // @ts-ignore
+        snapshots.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+      );
+    });
+    return unsubscribe;
+  }, []);
+
+  useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, [messages]);
   return (
-    <div className="flex-1 overflow-auto px-2 md:px-0">
+    <div className="flex-1 overflow-auto px-2 md:px-0 w-full">
       {messages.length === 0 && (
         <p className="h-full flex justify-center items-center text-xl font-medium text-gray-800">
           Nothing to show!
