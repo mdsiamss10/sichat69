@@ -4,12 +4,8 @@ import { adminArray } from "@/admin.array";
 import { db } from "@/firebase.config";
 import { MessageType } from "@/types";
 import { User } from "firebase/auth";
-<<<<<<< HEAD
-import { deleteDoc, doc } from "firebase/firestore";
-=======
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import { MdBlurOff, MdLensBlur } from "react-icons/md";
->>>>>>> 470c8d1 (Adding private and blur feature)
 import { RiDeleteBin6Line } from "react-icons/ri";
 
 function ChatBox({
@@ -28,8 +24,6 @@ function ChatBox({
       }
     }
   };
-<<<<<<< HEAD
-=======
   const handleBlurUpdate = async (docID: string) => {
     try {
       await updateDoc(doc(db, "chats", docID), { blured: !message.blured });
@@ -37,7 +31,6 @@ function ChatBox({
       alert(error.message);
     }
   };
->>>>>>> 470c8d1 (Adding private and blur feature)
   return (
     <div className="bg-slate-100 px-4 py-2 rounded-md my-2 lg:my-3 shadow-sm shadow-gray-100">
       <div className="flex items-center mb-2 justify-between">
@@ -54,16 +47,6 @@ function ChatBox({
         </div>
         {(user?.uid === message.userID ||
           adminArray.includes(user?.email ?? "")) && (
-<<<<<<< HEAD
-          <RiDeleteBin6Line
-            onClick={() => handleDelete(message!.docID)}
-            className="text-red-500 text-xl cursor-pointer"
-          />
-        )}
-      </div>
-      <div className="bg-white rounded-md p-3">
-        <p className="text-gray-800">{message.text}</p>
-=======
           <div className="flex space-x-2 select-none">
             {message.blured ? (
               <>
@@ -95,7 +78,6 @@ function ChatBox({
         >
           {message.text}
         </p>
->>>>>>> 470c8d1 (Adding private and blur feature)
       </div>
     </div>
   );

@@ -1,11 +1,8 @@
 "use client";
-<<<<<<< HEAD
-import { db } from "@/firebase.config";
-=======
+
 import { adminArray, subAdminArray } from "@/admin.array";
 import { db } from "@/firebase.config";
-import useStore from "@/store/useCheckStore";
->>>>>>> 470c8d1 (Adding private and blur feature)
+
 import { MessageType } from "@/types";
 import { User } from "firebase/auth";
 import { collection, onSnapshot, orderBy, query } from "firebase/firestore";
@@ -15,10 +12,7 @@ import ChatBox from "./ChatBox";
 function ChatContainer({ user }: { user: User | null }) {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const [messages, setMessages] = useState<MessageType[]>([]);
-<<<<<<< HEAD
-=======
-  const { checked } = useStore();
->>>>>>> 470c8d1 (Adding private and blur feature)
+
 
   useEffect(() => {
     const collectionRef = collection(db, "chats");
@@ -44,11 +38,7 @@ function ChatContainer({ user }: { user: User | null }) {
           Nothing to show!
         </p>
       )}
-<<<<<<< HEAD
-      {messages.map((message) => (
-        <ChatBox key={message.docID} message={message} user={user} />
-      ))}
-=======
+
       {subAdminArray.includes(user?.email ?? "") ||
       adminArray.includes(user?.email ?? "") ? (
         <>
@@ -67,7 +57,6 @@ function ChatContainer({ user }: { user: User | null }) {
             ))}
         </>
       )}
->>>>>>> 470c8d1 (Adding private and blur feature)
       <div ref={messagesEndRef} />
     </div>
   );

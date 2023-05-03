@@ -1,18 +1,12 @@
 import { db } from "@/firebase.config";
-<<<<<<< HEAD
-=======
 import useStore from "@/store/useCheckStore";
->>>>>>> 470c8d1 (Adding private and blur feature)
 import { User } from "firebase/auth";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FormEvent, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 function Footer({ user }: { user: User | null }) {
   const [text, setText] = useState("");
-<<<<<<< HEAD
-=======
   const { checked } = useStore();
->>>>>>> 470c8d1 (Adding private and blur feature)
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     const date = new Date();
     const formattedDate =
@@ -31,11 +25,8 @@ function Footer({ user }: { user: User | null }) {
           name: user!.displayName,
           userPhotoUrl: user!.photoURL,
           timestamp: serverTimestamp(),
-<<<<<<< HEAD
-=======
           privateChatBetweenAliSiam: checked,
           blured: false,
->>>>>>> 470c8d1 (Adding private and blur feature)
         });
       } catch (error: any) {
         alert(error.message);
@@ -50,13 +41,9 @@ function Footer({ user }: { user: User | null }) {
             Send Message
           </label>
           <div className="relative w-full">
-<<<<<<< HEAD
-=======
             {/* <div className="absolute cursor-pointer z-50 inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
               <FcAddImage className="text-gray-600 cursor-pointer" />
             </div> */}
-
->>>>>>> 470c8d1 (Adding private and blur feature)
             <input
               type="text"
               id="simple-search"
@@ -69,11 +56,7 @@ function Footer({ user }: { user: User | null }) {
           </div>
           <button
             type="submit"
-<<<<<<< HEAD
             className="p-[0.72rem] px-6 md:px-8 ml-2 text-lg font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-=======
-            className="p-[0.72rem] px-6 md:px-8 ml-2 text-lg font-medium text-white bg-blue-600 rounded-lg border border-blue-700 hover:bg-blue-800 focus:outline-none dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
->>>>>>> 470c8d1 (Adding private and blur feature)
           >
             <RiSendPlaneFill />
           </button>

@@ -8,9 +8,6 @@ export interface MessageType {
   createdAt: string;
   timestamp: Timestamp;
   userPhotoUrl: string;
-<<<<<<< HEAD
-=======
   privateChatBetweenAliSiam: boolean;
   blured: boolean;
->>>>>>> 470c8d1 (Adding private and blur feature)
 }
