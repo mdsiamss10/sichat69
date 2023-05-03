@@ -1,0 +1,25 @@
+@import url(https://fonts.googleapis.com/css?family=Poppins:100,100italic,200,200italic,300,300italic,regular,italic,500,500italic,600,600italic,700,700italic,800,800italic,900,900italic);
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  height: -webkit-fill-available;
+}
+* {
+  font-family: "Poppins", sans-serif;
+}
+body {
+  height: 100vh;
+  height: -webkit-fill-available;
+}
+.main-container,
+.signindiv {
+  height: -webkit-fill-available;
+  height: -moz-fill-available;
+}
+@media screen and (min-width: 768px) {
+  .home-text {
+    line-height: 64px !important;
+  }
+}
