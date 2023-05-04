@@ -1,9 +1,8 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 "use client";
-import { adminArray } from "@/admin.array";
 import { db } from "@/firebase.config";
-import { MessageType } from "@/types";
+import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import moment from "moment";
@@ -13,9 +12,11 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 function ChatBox({
   message,
   user,
+  admins,
 }: {
   message: MessageType;
   user: User | null;
+  admins: SubAdminsType[];
 }) {
   const handleDelete = async (docID: string) => {
     if (confirm("Are you sure you want to delete?")) {
@@ -65,7 +66,7 @@ function ChatBox({
         <div className="chat-footer opacity-100">
           <div className="flex items-center mb-2 justify-between">
             {(user?.uid === message.userID ||
-              adminArray.includes(user?.email ?? "")) && (
+              admins.some(({ email }) => email === user?.email)) && (
               <div className="flex space-x-2 select-none">
                 <RiDeleteBin6Line
                   onClick={() => handleDelete(message!.docID)}
