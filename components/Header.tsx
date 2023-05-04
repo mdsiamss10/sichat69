@@ -26,7 +26,7 @@ function Header({
   };
   return (
     <>
-      <div className="flex justify-between items-center p-4 shadow-lg shadow-gray-100 md:rounded-md bg-white">
+      <div className="flex justify-between items-center p-4 shadow-md shadow-gray-100/50 md:rounded-md bg-white">
         {admins.some(({ email }) => email === user?.email) ? (
           <AdminUserModal admins={admins} subadmins={subadmins} user={user!} />
         ) : (
@@ -38,21 +38,25 @@ function Header({
             <CheckBox user={user} />
           )}
           <label
-            htmlFor="my-modal-4"
+            htmlFor="my-modal-6"
             className="btn btn-primary rounded-full px-4"
           >
             Sign Out
           </label>
-          <input type="checkbox" id="my-modal-4" className="modal-toggle" />
-          <label htmlFor="my-modal-4" className="modal cursor-pointer">
+          <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+          <label
+            htmlFor="my-modal-6"
+            style={{ margin: 0 }}
+            className="modal cursor-pointer modal-bottom sm:modal-middle"
+          >
             <label className="modal-box relative">
-              <h3 className="text-lg font-bold">Danger!!!</h3>
+              <h3 className="text-lg font-bold">You're kidding right?😂😔</h3>
               <p className="py-4">Are you sure to sign out?</p>
               <div className="modal-action">
-                <label className="btn btn-outline" onClick={handleSignOut}>
+                <label className="btn btn-primary" onClick={handleSignOut}>
                   Logout
                 </label>
-                <label htmlFor="my-modal-4" className="btn btn-primary">
+                <label htmlFor="my-modal-6" className="btn btn-outline">
                   Cancel
                 </label>
               </div>

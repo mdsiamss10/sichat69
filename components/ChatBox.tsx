@@ -6,8 +6,7 @@ import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import moment from "moment";
-import { MdBlurOff, MdLensBlur } from "react-icons/md";
-import { RiDeleteBin6Line } from "react-icons/ri";
+import { MdBlurOff, MdDelete, MdLensBlur } from "react-icons/md";
 
 function ChatBox({
   message,
@@ -52,10 +51,10 @@ function ChatBox({
           )}
         </div>
         <div
-          className={`chat-bubble my-1 ${
+          className={`chat-bubble my-1 p-3.5 text-[0.873rem] ${
             user?.uid === message?.userID
               ? "chat-bubble-primary"
-              : "bg-gray-800"
+              : "bg-gray-100 text-black"
           } flex justify-center items-center min-w-auto transition ${
             message!.blured && "blur-sm select-none"
           }`}
@@ -66,10 +65,10 @@ function ChatBox({
           <div className="flex items-center mb-2 justify-between">
             {(user?.uid === message.userID ||
               admins.some(({ email }) => email === user?.email)) && (
-              <div className="flex space-x-2 select-none">
-                <RiDeleteBin6Line
+              <div className="flex space-x-2 select-none items-center justify-center">
+                <MdDelete
                   onClick={() => handleDelete(message!.docID)}
-                  className="text-red-500 text-lg cursor-pointer opacity-50"
+                  className="text-red-500 text-lg cursor-pointer"
                 />
                 {message.blured ? (
                   <>
@@ -86,11 +85,15 @@ function ChatBox({
                     />
                   </>
                 )}
-                <div className="text-[0.6rem] opacity-50">
-                  {moment(message?.timestamp).fromNow()}
-                </div>
               </div>
             )}
+            <div
+              className={`text-[0.6rem] opacity-50 ${
+                message?.userID === user?.uid && "ml-2"
+              } ${admins.some(({ email }) => email === user?.email) && "ml-2"}`}
+            >
+              {moment(message?.timestamp).fromNow()}
+            </div>
           </div>
         </div>
       </div>

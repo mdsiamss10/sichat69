@@ -55,7 +55,7 @@ function AdminUserModal({
     <>
       <div>
         <label
-          htmlFor="my-modal-6"
+          htmlFor="my-modal-7"
           className="btn btn-circle btn-ghost text-info"
         >
           <div className="avatar online">
@@ -65,9 +65,9 @@ function AdminUserModal({
           </div>
         </label>
 
-        <input type="checkbox" id="my-modal-6" className="modal-toggle" />
+        <input type="checkbox" id="my-modal-7" className="modal-toggle" />
         <label
-          htmlFor="my-modal-6"
+          htmlFor="my-modal-7"
           className="modal modal-bottom sm:modal-middle"
         >
           <label className="modal-box relative">

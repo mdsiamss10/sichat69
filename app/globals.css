@@ -23,3 +23,6 @@ body {
     line-height: 64px !important;
   }
 }
+.modal {
+  margin: auto;
+}

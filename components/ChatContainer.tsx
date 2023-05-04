@@ -39,7 +39,7 @@ function ChatContainer({
   }, [messages]);
 
   return (
-    <div className="flex-1 overflow-auto p-2 md:px-0 w-full">
+    <div className="flex-1 overflow-auto p-2 md:px-0 w-full]">
       {messages.length === 0 && (
         <p className="h-full flex justify-center items-center text-xl font-medium text-gray-800">
           Nothing to show!
