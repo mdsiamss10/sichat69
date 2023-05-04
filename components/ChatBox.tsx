@@ -43,14 +43,13 @@ function ChatBox({
       >
         <div className="chat-image avatar">
           <div className="w-10 rounded-full">
-            <img src={message?.userPhotoUrl ?? ""} />
+            <img title={message.name} src={message?.userPhotoUrl ?? ""} />
           </div>
         </div>
         <div className="chat-header">
-          <span>{message?.name ?? ""} | </span>
-          <time className="text-xs opacity-50">
-            {moment(message?.timestamp).fromNow()}
-          </time>
+          {user?.uid !== message?.userID && (
+            <span className="opacity-80">{message?.name}</span>
+          )}
         </div>
         <div
           className={`chat-bubble my-1 ${
@@ -87,6 +86,9 @@ function ChatBox({
                     />
                   </>
                 )}
+                <div className="text-[0.6rem] opacity-50">
+                  {moment(message?.timestamp).fromNow()}
+                </div>
               </div>
             )}
           </div>

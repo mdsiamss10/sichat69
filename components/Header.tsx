@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { auth } from "@/firebase.config";
@@ -17,12 +18,10 @@ function Header({
   subadmins: SubAdminsType[];
 }) {
   const handleSignOut = async () => {
-    if (confirm("Are you sure you want to sign out?")) {
-      try {
-        await signOut(auth);
-      } catch (err: any) {
-        alert(err.message);
-      }
+    try {
+      await signOut(auth);
+    } catch (err: any) {
+      alert(err.message);
     }
   };
   return (
@@ -38,12 +37,27 @@ function Header({
             subadmins.some(({ email }) => email === user?.email)) && (
             <CheckBox user={user} />
           )}
-          <button
-            onClick={handleSignOut}
+          <label
+            htmlFor="my-modal-4"
             className="btn btn-primary rounded-full px-4"
           >
             Sign Out
-          </button>
+          </label>
+          <input type="checkbox" id="my-modal-4" className="modal-toggle" />
+          <label htmlFor="my-modal-4" className="modal cursor-pointer">
+            <label className="modal-box relative">
+              <h3 className="text-lg font-bold">Danger!!!</h3>
+              <p className="py-4">Are you sure to sign out?</p>
+              <div className="modal-action">
+                <label className="btn btn-outline" onClick={handleSignOut}>
+                  Logout
+                </label>
+                <label htmlFor="my-modal-4" className="btn btn-primary">
+                  Cancel
+                </label>
+              </div>
+            </label>
+          </label>
         </div>
       </div>
     </>
