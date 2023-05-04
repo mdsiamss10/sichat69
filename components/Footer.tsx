@@ -1,7 +1,7 @@
 import { db } from "@/firebase.config";
 import useStore from "@/store/useCheckStore";
 import { User } from "firebase/auth";
-import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FormEvent, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
 function Footer({ user }: { user: User | null }) {
@@ -25,6 +25,7 @@ function Footer({ user }: { user: User | null }) {
           name: user!.displayName,
           userPhotoUrl: user!.photoURL,
           timestamp: Date.now(),
+          servertimestamp: serverTimestamp(),
           privateChatBetweenAliSiam: checked,
           blured: false,
         });

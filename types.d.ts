@@ -1,3 +1,5 @@
+import { Timestamp } from "firebase/firestore";
+
 export interface MessageType {
   docID: string;
   userID: string;
@@ -8,6 +10,7 @@ export interface MessageType {
   userPhotoUrl: string;
   privateChatBetweenAliSiam: boolean;
   blured: boolean;
+  servertimestamp: Timestamp;
 }
 export interface SubAdminsType {
   email: string;

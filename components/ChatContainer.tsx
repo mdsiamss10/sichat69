@@ -22,7 +22,7 @@ function ChatContainer({
 
   useEffect(() => {
     const collectionRef = collection(db, "chats");
-    const q = query(collectionRef, orderBy("timestamp", "asc"));
+    const q = query(collectionRef, orderBy("servertimestamp", "asc"));
     const unsubscribe = onSnapshot(q, (snapshots) => {
       setMessages(
         // @ts-ignore
