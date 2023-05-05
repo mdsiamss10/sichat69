@@ -96,7 +96,13 @@ function AdminUserModal({
               {admins.map((admin) => (
                 <>
                   <li
+                    className={`${
+                      admin.email === "ohiduzzamansiam@gmail.com" && "bordered"
+                    }`}
                     onClick={() => {
+                      if (admin.email === "ohiduzzamansiam@gmail.com") {
+                        return alert("You can't remove him from admin.");
+                      }
                       if (admin.email === user?.email) {
                         return alert("You can't remove yourself from admin.");
                       }
@@ -134,7 +140,7 @@ function AdminUserModal({
               </button>
             </form>
             {/* Display the current admins */}
-            <ul className="menu menu-compact bg-base-100 w-56 py-2 rounded-box">
+            <ul className="menu bg-base-100 w-56 p-2 rounded-box">
               {subadmins.map((subadmin) => (
                 <>
                   <li
