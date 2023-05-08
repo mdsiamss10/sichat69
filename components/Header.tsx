@@ -2,6 +2,7 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 import { auth } from "@/firebase.config";
+import useStore from "@/store/useCheckStore";
 import { SubAdminsType } from "@/types";
 import { User, signOut } from "firebase/auth";
 import AdminUserModal from "./AdminUserModal";
@@ -17,9 +18,11 @@ function Header({
   admins: SubAdminsType[];
   subadmins: SubAdminsType[];
 }) {
+  const { unCheckChecked } = useStore();
   const handleSignOut = async () => {
     try {
       await signOut(auth);
+      unCheckChecked();
     } catch (err: any) {
       alert(err.message);
     }
