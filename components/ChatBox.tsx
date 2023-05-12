@@ -47,13 +47,26 @@ function ChatBox({
         </div>
         <div className="chat-header">
           {user?.uid !== message?.userID && (
-            <span className="opacity-80">{message?.name}</span>
+            <span className="opacity-80">
+              {message?.name}{" "}
+              {message.privateChatBetweenAliSiam && (
+                <>
+                  <div className="badge badge-primary badge-sm ml-1">
+                    PRIVATE
+                  </div>
+                </>
+              )}
+            </span>
           )}
         </div>
         <div
           className={`chat-bubble my-1 p-3.5 text-[0.873rem] ${
             user?.uid === message?.userID
-              ? "chat-bubble-primary"
+              ? `${
+                  message.privateChatBetweenAliSiam
+                    ? "chat-bubble"
+                    : "chat-bubble-primary"
+                }`
               : "bg-gray-100 text-black"
           } flex justify-center items-center min-w-auto transition ${
             message!.blured && "blur-sm select-none"
