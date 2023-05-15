@@ -1,11 +1,11 @@
 import { auth } from "@/firebase.config";
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth";
+import { GoogleAuthProvider, signInWithRedirect } from "firebase/auth";
 
 function SignIn() {
   const provider = new GoogleAuthProvider();
   const handleSignIn = async () => {
     try {
-      await signInWithPopup(auth, provider);
+      await signInWithRedirect(auth, provider);
     } catch (err: any) {
       alert(err.message);
     }

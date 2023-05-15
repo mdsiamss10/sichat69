@@ -7,13 +7,12 @@ import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyAJHWDgs6_dJsgC3DGiMaIyVI_x_6E-osw",
-  authDomain: "next13chat.firebaseapp.com",
-  databaseURL: "https://next13chat-default-rtdb.firebaseio.com",
-  projectId: "next13chat",
-  storageBucket: "next13chat.appspot.com",
-  messagingSenderId: "443830232029",
-  appId: "1:443830232029:web:51a0538170321b59f98c34",
+  apiKey: "AIzaSyDRuJFwnhnLxJRqHFk4wPyZd6KUplp1QaY",
+  authDomain: "sichat69.firebaseapp.com",
+  projectId: "sichat69",
+  storageBucket: "sichat69.appspot.com",
+  messagingSenderId: "284150239936",
+  appId: "1:284150239936:web:7827bc9ce99e9c44121325",
 };
 
 // Initialize Firebase

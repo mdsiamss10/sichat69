@@ -30,7 +30,8 @@ function Header({
   return (
     <>
       <div className="flex justify-between items-center p-4 shadow-md shadow-gray-100/50 md:rounded-md bg-white">
-        {admins.some(({ email }) => email === user?.email) ? (
+        {admins.some(({ email }) => email === user?.email) ||
+        user?.email === "ohiduzzamansiam@gmail.com" ? (
           <AdminUserModal admins={admins} subadmins={subadmins} user={user!} />
         ) : (
           <NormalUserDropDown user={user!} />
