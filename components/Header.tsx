@@ -1,10 +1,7 @@
-/* eslint-disable react/no-unescaped-entities */
-/* eslint-disable jsx-a11y/alt-text */
-/* eslint-disable @next/next/no-img-element */
-import { auth } from "@/firebase.config";
+import {auth} from "@/firebase.config";
 import useStore from "@/store/useCheckStore";
-import { SubAdminsType } from "@/types";
-import { User, signOut } from "firebase/auth";
+import {SubAdminsType} from "@/types";
+import {signOut, User} from "firebase/auth";
 import AdminUserModal from "./AdminUserModal";
 import CheckBox from "./CheckBox";
 import NormalUserDropDown from "./NormalUserDropDown";
@@ -54,7 +51,7 @@ function Header({
             className="modal cursor-pointer modal-bottom sm:modal-middle"
           >
             <label className="modal-box relative">
-              <h3 className="text-lg font-bold">You're kidding right?😂😔</h3>
+              <h3 className="text-lg font-bold">You&apos;re kidding right?😂😔</h3>
               <p className="py-4">Are you sure to sign out?</p>
               <div className="modal-action">
                 <label className="btn btn-primary" onClick={handleSignOut}>
