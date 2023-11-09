@@ -1,9 +1,11 @@
 import { db } from "@/firebase.config";
 import useStore from "@/store/useCheckStore";
 import { User } from "firebase/auth";
+import { getDatabase, ref, set } from "firebase/database";
 import { addDoc, collection, serverTimestamp } from "firebase/firestore";
 import { FormEvent, useState } from "react";
 import { RiSendPlaneFill } from "react-icons/ri";
+
 function Footer({ user }: { user: User | null }) {
   const [text, setText] = useState("");
   const { checked } = useStore();
@@ -26,6 +28,7 @@ function Footer({ user }: { user: User | null }) {
           userPhotoUrl: user!.photoURL,
           timestamp: Date.now(),
           servertimestamp: serverTimestamp(),
+          email: user!.email,
           privateChatBetweenAliSiam: checked,
           blured: false,
         });
@@ -45,9 +48,28 @@ function Footer({ user }: { user: User | null }) {
             placeholder="Type Here..."
             autoComplete="off"
             value={text}
-            onChange={(e) => setText(e.target.value)}
+            onChange={(e) => {
+              const newText = e.target.value;
+
+              const db = getDatabase();
+              set(ref(db, `whoistyping/${user?.email?.split("@")[0]}`), {
+                isTyping: newText.length === 0 ? false : true,
+              });
+
+              setText(newText);
+            }}
           />
-          <button type="submit" className="btn btn-primary">
+
+          <button
+            type="submit"
+            className="btn btn-primary"
+            onClick={() => {
+              const db = getDatabase();
+              set(ref(db, `whoistyping/${user?.email?.split("@")[0]}`), {
+                isTyping: false,
+              });
+            }}
+          >
             <RiSendPlaneFill />
           </button>
         </form>

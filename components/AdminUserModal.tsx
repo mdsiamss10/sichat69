@@ -1,12 +1,12 @@
 "use client";
-import {db} from "@/firebase.config";
+import { db } from "@/firebase.config";
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable jsx-a11y/alt-text */
-import {User} from "firebase/auth";
-import {addDoc, collection, deleteDoc, doc} from "firebase/firestore";
-import {FormEvent, useState} from "react";
-import {HiPlus} from "react-icons/hi";
-import {SubAdminsType} from "@/types";
+import { SubAdminsType } from "@/types";
+import { User } from "firebase/auth";
+import { addDoc, collection, deleteDoc, doc } from "firebase/firestore";
+import { FormEvent, useState } from "react";
+import { HiPlus } from "react-icons/hi";
 
 /* eslint-disable react/no-unescaped-entities */
 function AdminUserModal({

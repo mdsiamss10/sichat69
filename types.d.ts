@@ -5,6 +5,7 @@ export interface MessageType {
   userID: string;
   text: string;
   name: string;
+  email: string;
   createdAt: string;
   timestamp: Date;
   userPhotoUrl: string;

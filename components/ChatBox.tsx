@@ -1,11 +1,15 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { db } from "@/firebase.config";
+import { playAudio } from "@/playAudio";
 import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
+import { getDatabase, onValue, ref } from "firebase/database";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import moment from "moment";
+import { useEffect, useState } from "react";
 import { MdBlurOff, MdDelete, MdLensBlur } from "react-icons/md";
 
 function ChatBox({
@@ -17,6 +21,9 @@ function ChatBox({
   user: User | null;
   admins: SubAdminsType[];
 }) {
+  const [whoIsTyping, setWhoIsTyping] = useState<
+    { name: string; isTyping: boolean }[] | []
+  >([]);
   const handleDelete = async (docID: string) => {
     if (confirm("Are you sure you want to delete?")) {
       try {
@@ -33,6 +40,37 @@ function ChatBox({
       alert(error.message);
     }
   };
+  useEffect(() => {
+    const db = getDatabase();
+    const isTypingRef = ref(db, "whoistyping");
+
+    // Listen for changes in the database reference
+    onValue(isTypingRef, (snapshot) => {
+      const data = snapshot.val();
+
+      if (data) {
+        // Convert the data object into an array
+        const newDataArray = Object.keys(data).map((key) => ({
+          name: key,
+          isTyping: data[key].isTyping,
+        }));
+
+        // Filter out duplicates based on the 'name' and 'isTyping' values
+        const filteredArray = newDataArray.filter((newData) => {
+          return !whoIsTyping.some((existingData: any) => {
+            return (
+              existingData.name === newData.name &&
+              existingData.isTyping === newData.isTyping
+            );
+          });
+        });
+
+        // Update the state with the new array
+        // console.log(filteredArray);
+        setWhoIsTyping(() => [...filteredArray]);
+      }
+    });
+  }, []);
   return (
     <>
       <div
@@ -41,9 +79,39 @@ function ChatBox({
         }`}
       >
         <div className="chat-image avatar">
-          <div className="w-10 rounded-full">
-            <img title={message.name} src={message?.userPhotoUrl ?? ""} />
-          </div>
+          {whoIsTyping.length == 0 ? (
+            <>
+              <div className="w-10 rounded-full">
+                <img title={message.name} src={message?.userPhotoUrl ?? ""} />
+              </div>
+            </>
+          ) : (
+            <>
+              {whoIsTyping.map((typeUser) => (
+                <>
+                  {typeUser.name === message.email.split("@")[0] && (
+                    <>
+                      {typeUser.isTyping &&
+                        typeUser.name !== user?.email?.split("@")[0] &&
+                        playAudio()}
+                      <div
+                        className={`w-10 rounded-full ${
+                          typeUser.isTyping &&
+                          typeUser.name !== user?.email?.split("@")[0] &&
+                          "border-4 border-primary transition-all animate-pulse"
+                        }`}
+                      >
+                        <img
+                          title={message.name}
+                          src={message?.userPhotoUrl ?? ""}
+                        />
+                      </div>
+                    </>
+                  )}
+                </>
+              ))}
+            </>
+          )}
         </div>
         <div className="chat-header">
           {user?.uid !== message?.userID && (
