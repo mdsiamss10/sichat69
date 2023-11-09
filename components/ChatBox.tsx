@@ -3,7 +3,6 @@
 /* eslint-disable @next/next/no-img-element */
 "use client";
 import { db } from "@/firebase.config";
-import { playAudio } from "@/playAudio";
 import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
 import { getDatabase, onValue, ref } from "firebase/database";
@@ -92,13 +91,19 @@ function ChatBox({
                   {typeUser.name === message.email.split("@")[0] && (
                     <>
                       {typeUser.isTyping &&
-                        typeUser.name !== user?.email?.split("@")[0] &&
-                        playAudio()}
+                        typeUser.name !== user?.email?.split("@")[0] && (
+                          <>
+                            <audio
+                              autoPlay={true}
+                              src="\resources\Facebook Msnger 2014.mp3"
+                            ></audio>
+                          </>
+                        )}
                       <div
-                        className={`w-10 rounded-full ${
+                        className={`w-10 rounded-full transition-all ${
                           typeUser.isTyping &&
                           typeUser.name !== user?.email?.split("@")[0] &&
-                          "border-4 border-primary transition-all animate-pulse"
+                          "border-4 border-primary animate-pulse"
                         }`}
                       >
                         <img
