@@ -23,6 +23,7 @@ function ChatBox({
   const [whoIsTyping, setWhoIsTyping] = useState<
     { name: string; isTyping: boolean }[] | []
   >([]);
+  const currentUserEmail = user?.email?.split("@")[0];
   const handleDelete = async (docID: string) => {
     if (confirm("Are you sure you want to delete?")) {
       try {
@@ -75,7 +76,7 @@ function ChatBox({
       if (document.hidden) {
         // The page is not visible
         const fDB = getDatabase();
-        set(ref(fDB, `whoistyping/${user?.email?.split("@")[0]}`), {
+        set(ref(fDB, `whoistyping/${currentUserEmail}`), {
           isTyping: false,
         });
       }
@@ -108,7 +109,7 @@ function ChatBox({
                   {typeUser.name === message.email.split("@")[0] && (
                     <>
                       {typeUser.isTyping &&
-                        typeUser.name !== user?.email?.split("@")[0] && (
+                        typeUser.name !== currentUserEmail && (
                           <>
                             <audio
                               autoPlay={true}
@@ -119,7 +120,7 @@ function ChatBox({
                       <div
                         className={`w-10 rounded-full transition-all ${
                           typeUser.isTyping &&
-                          typeUser.name !== user?.email?.split("@")[0] &&
+                          typeUser.name !== currentUserEmail &&
                           "border-4 border-primary animate-pulse"
                         }`}
                       >

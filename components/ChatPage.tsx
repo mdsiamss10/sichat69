@@ -1,7 +1,7 @@
 "use client";
-import { db } from "@/firebase.config";
+import { auth, db } from "@/firebase.config";
 import { SubAdminsType } from "@/types";
-import { User } from "firebase/auth";
+import { User, signOut } from "firebase/auth";
 import { collection, onSnapshot } from "firebase/firestore";
 import { useEffect, useState } from "react";
 import ChatContainer from "./ChatContainer";
@@ -11,6 +11,13 @@ import Header from "./Header";
 function ChatPage({ user }: { user: User | null }) {
   const [subadmins, setSubAdmins] = useState<SubAdminsType[]>([]);
   const [admins, setAdmins] = useState<SubAdminsType[]>([]);
+
+  useEffect(() => {
+    if (user && prompt("Enter password to login: ") !== "sichat69") {
+      void signOut(auth);
+    }
+  }, []);
+
   useEffect(() => {
     const collectionRef = collection(db, "subadmins");
     const unsubscribe = onSnapshot(collectionRef, (snapshots) => {
