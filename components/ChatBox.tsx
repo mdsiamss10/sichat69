@@ -5,7 +5,7 @@
 import { db } from "@/firebase.config";
 import { MessageType, SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
-import { getDatabase, onValue, ref } from "firebase/database";
+import { getDatabase, onValue, ref, set } from "firebase/database";
 import { deleteDoc, doc, updateDoc } from "firebase/firestore";
 import moment from "moment";
 import { useEffect, useState } from "react";
@@ -69,6 +69,23 @@ function ChatBox({
         setWhoIsTyping(() => [...filteredArray]);
       }
     });
+  }, []);
+  useEffect(() => {
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        // The page is not visible
+        const fDB = getDatabase();
+        set(ref(fDB, `whoistyping/${user?.email?.split("@")[0]}`), {
+          isTyping: false,
+        });
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
+    return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
+    };
   }, []);
   return (
     <>
