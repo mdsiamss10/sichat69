@@ -25,8 +25,7 @@ function ChatContainer({
     const q = query(collectionRef, orderBy("servertimestamp", "asc"));
     const unsubscribe = onSnapshot(q, (snapshots) => {
       setMessages(
-        // @ts-ignore
-        snapshots.docs.map((doc) => ({ ...doc.data(), docID: doc.id }))
+        snapshots.docs.map((doc) => ({ ...(doc.data() as any), docID: doc.id }))
       );
     });
     return unsubscribe;

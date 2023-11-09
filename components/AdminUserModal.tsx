@@ -59,7 +59,7 @@ function AdminUserModal({
           className="btn btn-circle btn-ghost text-info"
         >
           <div className="avatar online">
-            <div className="w-11 rounded-full ring ring-primary ring-offset-base-100 ring-offset-">
+            <div className="w-11 rounded-full ring ring-neutral ring-offset-base-100">
               <img src={user?.photoURL ?? ""} title={user?.email ?? ""} />
             </div>
           </div>

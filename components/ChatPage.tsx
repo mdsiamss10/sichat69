@@ -13,10 +13,16 @@ function ChatPage({ user }: { user: User | null }) {
   const [admins, setAdmins] = useState<SubAdminsType[]>([]);
 
   useEffect(() => {
-    if (user && prompt("Enter password to login: ") !== "sichat69") {
-      void signOut(auth);
+    if (localStorage.getItem("isPasswordSet") !== "true") {
+      if (admins.some(({ email }) => email !== user?.email)) {
+        if (prompt("Enter password to login: ") !== "sichat69") {
+          void signOut(auth);
+        } else {
+          localStorage.setItem("isPasswordSet", "true");
+        }
+      }
     }
-  }, []);
+  }, [user, admins]);
 
   useEffect(() => {
     const collectionRef = collection(db, "subadmins");

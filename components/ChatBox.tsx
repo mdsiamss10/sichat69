@@ -125,7 +125,7 @@ function ChatBox({
                         }`}
                       >
                         <img
-                          title={message.name}
+                          title={message.email}
                           src={message?.userPhotoUrl ?? ""}
                         />
                       </div>

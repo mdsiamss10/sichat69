@@ -1,8 +1,11 @@
 /* eslint-disable react/no-unescaped-entities */
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable @next/next/no-img-element */
+"use client";
+
 import { SubAdminsType } from "@/types";
 import { User } from "firebase/auth";
+import { deleteAllChats } from "./Header";
 
 function NormalUserDropDown({
   user,
@@ -18,7 +21,7 @@ function NormalUserDropDown({
       <div>
         <label htmlFor="my-modal-4">
           <div className="avatar online">
-            <div className="w-11 rounded-full ring ring-primary ring-offset-base-100 ring-offset-">
+            <div className="w-11 rounded-full ring ring-neutral ring-offset-base-100">
               <img src={user?.photoURL ?? ""} title={user?.email ?? ""} />
             </div>
           </div>
@@ -31,6 +34,17 @@ function NormalUserDropDown({
               You are currently logged in with <b>{user?.email ?? ""}</b> this
               email
             </p>
+            <span>
+              To delete all chats,{" "}
+              <span
+                onClick={() => {
+                  void deleteAllChats();
+                }}
+                className="text-red-500 underline cursor-pointer"
+              >
+                click here.
+              </span>
+            </span>
           </label>
         </label>
       </div>
