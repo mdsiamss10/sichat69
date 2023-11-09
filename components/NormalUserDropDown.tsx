@@ -39,6 +39,7 @@ function NormalUserDropDown({
               <span
                 onClick={() => {
                   void deleteAllChats();
+                  location.reload();
                 }}
                 className="text-red-500 underline cursor-pointer"
               >

@@ -22,7 +22,6 @@ export const deleteAllChats = async () => {
       await deleteDoc(doc(db, "chats", docs.id));
     });
   });
-  location.reload();
 };
 
 function Header({
@@ -101,6 +100,7 @@ function Header({
                   <li
                     onClick={() => {
                       void deleteAllChats();
+                      location.reload();
                     }}
                   >
                     <a className="text-red-500">Delete all chats</a>
